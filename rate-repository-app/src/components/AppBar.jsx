@@ -1,4 +1,5 @@
-import { View, Pressable, StyleSheet } from 'react-native';
+import { View, StyleSheet } from 'react-native';
+import { Link } from "react-router-native";
 import Constants from 'expo-constants';
 
 import Text from './Text';
@@ -17,8 +18,19 @@ const styles = StyleSheet.create({
   }
 });
 
-const AppBarTab = ({ label }) => {
-  return <Pressable onPress={() => null}>
+const AppBarTab = ({ label, route }) => {
+  // return <Pressable onPress={() => null}>
+  //   <Text
+  //     style={styles.tab}
+  //     color={"white"}
+  //     fontSize={'subheading'}
+  //     fontWeight={"bold"}
+  //   >
+  //     {label}
+  //   </Text>
+  // </Pressable>
+
+  return <Link to={route}>
     <Text
       style={styles.tab}
       color={"white"}
@@ -27,12 +39,13 @@ const AppBarTab = ({ label }) => {
     >
       {label}
     </Text>
-  </Pressable>
+  </Link>
 }
 
 const AppBar = () => {
   return <View style={styles.container}>
-    <AppBarTab label="Repositories" />
+    <AppBarTab label="Repositories" route="/" />
+    <AppBarTab label="Sign in" route="/sign-in"/>
   </View>;
 };
 
