@@ -5,6 +5,7 @@ import Constants from 'expo-constants';
 import Text from './Text';
 
 import theme from '../theme';
+import { ScrollView } from 'react-native';
 
 const styles = StyleSheet.create({
   container: {
@@ -19,17 +20,6 @@ const styles = StyleSheet.create({
 });
 
 const AppBarTab = ({ label, route }) => {
-  // return <Pressable onPress={() => null}>
-  //   <Text
-  //     style={styles.tab}
-  //     color={"white"}
-  //     fontSize={'subheading'}
-  //     fontWeight={"bold"}
-  //   >
-  //     {label}
-  //   </Text>
-  // </Pressable>
-
   return <Link to={route}>
     <Text
       style={styles.tab}
@@ -44,8 +34,10 @@ const AppBarTab = ({ label, route }) => {
 
 const AppBar = () => {
   return <View style={styles.container}>
-    <AppBarTab label="Repositories" route="/" />
-    <AppBarTab label="Sign in" route="/sign-in"/>
+    <ScrollView horizontal>
+      <AppBarTab label="Repositories" route="/" />
+      <AppBarTab label="Sign in" route="/sign-in" />
+    </ScrollView>
   </View>;
 };
 
