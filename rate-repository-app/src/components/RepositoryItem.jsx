@@ -4,12 +4,14 @@ import Text from "./Text";
 import theme from "../theme";
 
 const styles = StyleSheet.create({
+  container: {
+    backgroundColor: theme.colors.white
+  },
   topRow: {
     flexDirection: 'row',
     padding: 15
   },
   infoCol: {
-    // alignItems: "flex-start",
     paddingRight: 20,
     marginHorizontal: 20
   },
@@ -28,14 +30,12 @@ const styles = StyleSheet.create({
   numbersRow: {
     flexDirection: "row",
     justifyContent: "space-evenly",
-    paddingBottom: 15
   },
   numberItem: {
     alignItems: "center"
   },
   bottomDivider: {
     height: 10,
-    backgroundColor: "#EEEEEE"
   }
 });
 
@@ -65,7 +65,7 @@ const RepositoryItem = ({
   ownerAvatarUrl
 }) => {
   return (
-    <View>
+    <View style={styles.container}>
       <View style={styles.topRow}>
         <Image style={styles.tinyLogo} source={{ uri: ownerAvatarUrl }} />
         <View style={styles.infoCol}>
