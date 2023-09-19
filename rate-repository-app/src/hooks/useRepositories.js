@@ -7,18 +7,18 @@ const useRepositories = () => {
   // const [repositories, setRepositories] = useState();
   // const [loading, setLoading] = useState(false);
 
+  let repositories;
+
   const { data, loading } = useQuery(GET_REPOSITORIES, {
-    fetchPolicy: 'cache-and-network'
+    fetchPolicy: 'cache-and-network',
   });
   // console.log(data.repositories)
-  const repositories = data.repositories
+  if (data) repositories = data.repositories;
 
   const fetchRepositories = async () => {
     // setLoading(true);
-
     // const response = await fetch('http://10.46.21.131:5000/api/repositories');
     // const json = await response.json();
-
     // setLoading(false);
     // setRepositories(json);
   };
