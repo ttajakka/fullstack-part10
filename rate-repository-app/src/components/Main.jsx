@@ -7,6 +7,8 @@ import SignIn from './SignIn';
 
 import theme from '../theme';
 
+// import { useQuery } from '@apollo/client';
+// import { GET_REPOSITORIES } from '../graphql/queries';
 
 const styles = StyleSheet.create({
   container: {

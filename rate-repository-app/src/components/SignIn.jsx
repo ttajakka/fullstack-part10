@@ -11,19 +11,6 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: theme.colors.white,
   },
-  // input: {
-  //   flexDirection: 'row',
-  //   justifyContent: 'center',
-  //   fontSize: theme.fontSizes.subheading,
-  //   color: theme.colors.textSecondary,
-  //   margin: 10,
-  //   marginBottom: 0,
-  //   padding: 8,
-  //   borderStyle: 'solid',
-  //   borderWidth: 1,
-  //   borderRadius: 4,
-  //   borderColor: theme.colors.inputBorder,
-  // },
   button: {
     flexDirection: 'row',
     alignItems: 'center',
