@@ -7,6 +7,7 @@ import Text from './Text';
 
 import theme from '../theme';
 import useSignIn from '../hooks/useSignIn';
+import { useNavigate } from 'react-router-native';
 
 const styles = StyleSheet.create({
   container: {
@@ -61,14 +62,16 @@ const SignInForm = ({ onSubmit }) => {
 
 const SignIn = () => {
   const [signIn] = useSignIn();
+  const navigate = useNavigate();
 
   const onSubmit = async (values) => {
     const { username, password } = values;
-    console.log(values);
+    // console.log(values);
 
     try {
       const { data } = await signIn({ username, password });
-      console.log('data:', data);
+      console.log('from SingIn component:', data);
+      navigate("/")
     } catch (e) {
       console.log('error:', e)
     }
