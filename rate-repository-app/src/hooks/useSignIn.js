@@ -15,7 +15,6 @@ const useSignIn = () => {
     await authStorage.setAccessToken(data.data.authenticate.accessToken);
     apolloClient.resetStore();
 
-    // console.log('error:', result.error)
     return data;
   };
 

@@ -69,8 +69,9 @@ const SignIn = () => {
     // console.log(values);
 
     try {
-      const { data } = await signIn({ username, password });
-      console.log('from SingIn component:', data);
+      // const { data } = await signIn({ username, password });
+      // console.log('from SingIn component:', data);
+      await signIn({ username, password });
       navigate("/")
     } catch (e) {
       console.log('error:', e)
