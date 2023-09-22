@@ -39,13 +39,11 @@ const SignInForm = ({ onSubmit }) => {
   return (
     <View style={styles.container}>
       <FormikTextInput
-        // style={styles.input}
         name="username"
         placeholder="Username"
         placeholderTextColor={theme.colors.placeholderText}
       />
       <FormikTextInput
-        // style={styles.input}
         name="password"
         placeholder="Password"
         placeholderTextColor={theme.colors.placeholderText}
@@ -60,34 +58,46 @@ const SignInForm = ({ onSubmit }) => {
   );
 };
 
+export const SignInFormik = ({ initialValues, onSubmit, validationSchema }) => {
+  return (<Formik
+    initialValues={initialValues}
+    onSubmit={onSubmit}
+    validationSchema={validationSchema}
+  >
+    {({ handleSubmit }) => <SignInForm onSubmit={handleSubmit} />}
+  </Formik>);
+};
+
 const SignIn = () => {
   const [signIn] = useSignIn();
   const navigate = useNavigate();
 
   const onSubmit = async (values) => {
     const { username, password } = values;
-    // console.log(values);
 
     try {
-      // const { data } = await signIn({ username, password });
-      // console.log('from SingIn component:', data);
       await signIn({ username, password });
-      navigate("/")
+      navigate('/');
     } catch (e) {
-      console.log('error:', e)
+      console.log('error:', e);
     }
   };
 
-
-
+  // return (
+  //   <Formik
+  //     initialValues={initialValues}
+  //     onSubmit={onSubmit}
+  //     validationSchema={validationSchema}
+  //   >
+  //     {({ handleSubmit }) => <SignInForm onSubmit={handleSubmit} />}
+  //   </Formik>
+  // );
   return (
-    <Formik
+    <SignInFormik
       initialValues={initialValues}
       onSubmit={onSubmit}
       validationSchema={validationSchema}
-    >
-      {({ handleSubmit }) => <SignInForm onSubmit={handleSubmit} />}
-    </Formik>
+    />
   );
 };
 
