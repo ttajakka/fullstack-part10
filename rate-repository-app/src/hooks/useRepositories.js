@@ -12,9 +12,7 @@ const useRepositories = () => {
   
   if (data) repositories = data.repositories;
 
-  const fetchRepositories = async () => {};
-
-  return { repositories, loading, refetch: fetchRepositories };
+  return { repositories, loading };
 };
 
 export default useRepositories;
