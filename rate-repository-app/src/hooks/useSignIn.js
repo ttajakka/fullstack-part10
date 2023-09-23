@@ -8,7 +8,6 @@ const useSignIn = () => {
   const authStorage = useAuthStorage();
 
   const signIn = async ({ username, password }) => {
-    // console.log('hello', username, password);
     const payload = await mutate({
       variables: { credentials: { username, password } },
     });

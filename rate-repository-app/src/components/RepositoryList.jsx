@@ -21,25 +21,13 @@ export const RepositoryListContainer = ({ repositories }) => {
     <FlatList
       data={repositoryNodes}
       ItemSeparatorComponent={ItemSeparator}
-      renderItem={({ item }) => <RepositoryItem {...item} />}
+      renderItem={({ item }) => <RepositoryItem {...item} showURL={false} />}
     />
   );
 }
 
 const RepositoryList = () => {
   const { repositories } = useRepositories();
-
-  // const repositoryNodes = repositories
-  //   ? repositories.edges.map((edge) => edge.node)
-  //   : [];
-
-  // return (
-  //   <FlatList
-  //     data={repositoryNodes}
-  //     ItemSeparatorComponent={ItemSeparator}
-  //     renderItem={({ item }) => <RepositoryItem {...item} />}
-  //   />
-  // );
 
   return <RepositoryListContainer repositories={repositories} />
 };

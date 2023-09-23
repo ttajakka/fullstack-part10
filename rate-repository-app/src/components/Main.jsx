@@ -4,29 +4,26 @@ import { Route, Routes, Navigate } from 'react-router-native';
 import AppBar from './AppBar';
 import RepositoryList from './RepositoryList';
 import SignIn from './SignIn';
-// import SignOut from './SignOut';
+import SingleRepositoryPage from './SingleRepositoryPage';
 
 import theme from '../theme';
-
-// import { useQuery } from '@apollo/client';
-// import { GET_REPOSITORIES } from '../graphql/queries';
 
 const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
     flexShrink: 1,
-    backgroundColor: theme.colors.backgroundLight
+    backgroundColor: theme.colors.backgroundLight,
   },
 });
 
 const Main = () => {
   return (
     <View style={styles.container}>
-      <AppBar/>
+      <AppBar />
       <Routes>
         <Route path="/" element={<RepositoryList />} exact />
-        <Route path="sign-in" element={<SignIn/>} exact/>
-        {/* <Route path="sign-out" element={<SignOut/>} exact/> */}
+        <Route path="sign-in" element={<SignIn />} exact />
+        <Route path="/:id" element={<SingleRepositoryPage />} exact />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </View>
