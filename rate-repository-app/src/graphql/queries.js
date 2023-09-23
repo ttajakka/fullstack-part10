@@ -33,6 +33,42 @@ query getRepository($repositoryId: ID!) {
     stargazersCount
     ownerAvatarUrl
     url
+    reviews {
+      edges {
+        node {
+          id
+          text
+          rating
+          createdAt
+          user {
+            id
+            username
+          }
+        }
+      }
+    }
+  }
+}
+`
+
+export const GET_REVIEWS = gql`
+query getReviews($repositoryId: ID!) {
+  repository(id: $repositoryId) {
+    id
+    reviews {
+      edges {
+        node {
+          id
+          text
+          rating
+          createdAt
+          user {
+            id
+            username
+          }
+        }
+      }
+    }
   }
 }
 `
