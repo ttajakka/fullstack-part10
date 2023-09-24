@@ -47,7 +47,6 @@ const AppBar = () => {
   const currentUser = data?.me;
 
   const onSignOut = async () => {
-    console.log('Sign out pressed')
     await authStorage.removeAccessToken();
     apolloClient.resetStore();
     navigate('/');
@@ -63,6 +62,7 @@ const AppBar = () => {
         ) : (
           <AppBarTab label="Sign in" route="/sign-in" />
         )}
+        {!currentUser && <AppBarTab label="Sign up" route="/sign-up" />}
       </ScrollView>
     </View>
   );

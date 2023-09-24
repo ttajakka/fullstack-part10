@@ -6,7 +6,8 @@ import FormikTextInput from './FormikTextInput';
 import Text from './Text';
 
 import theme from '../theme';
-import useCreateRevew from '../hooks/useCreateReview';
+import useCreateUser from '../hooks/useCreateUser';
+import useSignIn from '../hooks/useSignIn';
 import { useNavigate } from 'react-router-native';
 
 const styles = StyleSheet.create({
@@ -26,71 +27,61 @@ const styles = StyleSheet.create({
 });
 
 const initialValues = {
-  ownerName: '',
-  repositoryName: '',
-  rating: 0,
-  text: '',
+  username: '',
+  password: '',
+  passwordConfirm: '',
 };
 
 const validationSchema = yup.object().shape({
-  ownerName: yup.string().required('Repository owner name is required'),
-  repositoryName: yup.string().required('Repository name is required'),
-  rating: yup.number()
-    .min(0, 'Rating must be between 0 and 100')
-    .max(100, 'Rating must be between 0 and 100')
-    .required('Rating is required')
-    .typeError('Rating must be a number'),
-  text: yup.string(),
+  username: yup.string().required('Username is required'),
+  password: yup.string().required('Password is required'),
+  passwordConfirm: yup
+    .string()
+    .oneOf([yup.ref('password'), null], 'Password do not match')
+    .required('Password confirmation is required'),
 });
 
 const SignInForm = ({ onSubmit }) => {
   return (
     <View style={styles.container}>
       <FormikTextInput
-        name="ownerName"
-        placeholder="Repository owner name"
+        name="username"
+        placeholder="Username"
         placeholderTextColor={theme.colors.placeholderText}
       />
       <FormikTextInput
-        name="repositoryName"
-        placeholder="Repository name"
+        name="password"
+        placeholder="Password"
         placeholderTextColor={theme.colors.placeholderText}
+        secureTextEntry={true}
       />
       <FormikTextInput
-        name="rating"
-        placeholder="Rating between 0 and 100"
+        name="passwordConfirm"
+        placeholder="Password confirmation"
         placeholderTextColor={theme.colors.placeholderText}
-      />
-      <FormikTextInput
-        name="text"
-        placeholder="Reviews"
-        placeholderTextColor={theme.colors.placeholderText}
+        secureTextEntry={true}
       />
       <Pressable style={styles.button} onPress={onSubmit}>
         <Text color="white" fontSize="subheading" fontWeight="bold">
-          Create a review
+          Sign up
         </Text>
       </Pressable>
     </View>
   );
 };
 
-const ReviewForm = () => {
-  const [createReview] = useCreateRevew();
+const SignUp = () => {
+  const [createUser] = useCreateUser();
+  const [signIn] = useSignIn();
   const navigate = useNavigate();
 
   const onSubmit = async (values) => {
-    const { ownerName, repositoryName, text } = values;
-    const rating = parseInt(values.rating);
+    const { username, password } = values;
 
     try {
-      const data = await createReview({
-        ownerName,
-        repositoryName,
-        rating,
-        text,
-      });
-      navigate(`/${data.createReview.repositoryId}`);
+      await createUser({ username, password });
+      await signIn({ username, password })
+      navigate('/');
     } catch (e) {
       console.log('error:', e);
     }
@@ -107,4 +98,4 @@ const ReviewForm = () => {
   );
 };
 
-export default ReviewForm;
+export default SignUp;
