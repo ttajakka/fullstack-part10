@@ -6,8 +6,8 @@ import useAuthStorage from '../hooks/useAuthStorage';
 
 import Text from './Text';
 import theme from '../theme';
-import { useApolloClient, useQuery } from '@apollo/client';
-import { GET_CURRENT_USER } from '../graphql/queries';
+import { useApolloClient } from '@apollo/client';
+import useGetCurrentUser from '../hooks/useGetCurrentUser';
 
 const styles = StyleSheet.create({
   container: {
@@ -25,7 +25,8 @@ const AppBarTab = ({ label, route, ...props }) => {
   return (
     <Link to={route}>
       <Text
-        style={styles.tab} {...props}
+        style={styles.tab}
+        {...props}
         color={'white'}
         fontSize={'subheading'}
         fontWeight={'bold'}
@@ -41,22 +42,27 @@ const AppBar = () => {
   const authStorage = useAuthStorage();
   const navigate = useNavigate();
 
-  const { data } = useQuery(GET_CURRENT_USER, {
-    fetchPolicy: 'cache-and-network'
-  });
+  // const { data } = useQuery(GET_CURRENT_USER, {
+  //   fetchPolicy: 'cache-and-network'
+  // });
+
+  const { data } = useGetCurrentUser(false);
   const currentUser = data?.me;
 
   const onSignOut = async () => {
     await authStorage.removeAccessToken();
     apolloClient.resetStore();
     navigate('/');
-  }
+  };
 
   return (
     <View style={styles.container}>
       <ScrollView horizontal>
         <AppBarTab label="Repositories" route="/" />
-        {currentUser && <AppBarTab label="Create a review" route="/review-form" />}
+        {currentUser && (
+          <AppBarTab label="Create a review" route="/review-form" />
+        )}
+        {currentUser && <AppBarTab label="My reviews" route="/users-reviews" />}
         {currentUser ? (
           <AppBarTab onPress={onSignOut} label="Sign out" />
         ) : (

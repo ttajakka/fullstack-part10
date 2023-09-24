@@ -5,7 +5,6 @@ import { Picker } from '@react-native-picker/picker';
 import RepositoryItem from './RepositoryItem';
 
 import useRepositories from '../hooks/useRepositories';
-import Text from './Text';
 
 const styles = StyleSheet.create({
   separator: {
@@ -33,8 +32,13 @@ const RepositoryList = () => {
   const [order, setOrder] = useState('DEFAULT');
   const { repositories } = useRepositories(order);
 
+  const repositoryNodes = repositories
+    ? repositories.edges.map((edge) => edge.node)
+    : [];
+
   return (
     <>
+      
       <Picker
         selectedValue={order}
         onValueChange={(itemValue) => setOrder(itemValue)}
@@ -44,7 +48,12 @@ const RepositoryList = () => {
         <Picker.Item label="Highest rated repositories" value="HIGHEST" />
         <Picker.Item label="Lowest rated repositories" value="LOWEST" />
       </Picker>
-      <RepositoryListContainer repositories={repositories} />
+      {/* <RepositoryListContainer repositories={repositories} /> */}
+      <FlatList
+      data={repositoryNodes}
+      ItemSeparatorComponent={ItemSeparator}
+      renderItem={({ item }) => <RepositoryItem {...item} showURL={false} />}
+    />
     </>
   );
 };
