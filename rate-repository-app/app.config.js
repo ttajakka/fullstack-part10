@@ -30,8 +30,6 @@ export default {
   },
   extra: {
     env: process.env.ENV,
-    // env: 'ukkis',
     apolloUri: process.env.APOLLO_URI
-    // apolloUri: 'jeesus',
   },
 };

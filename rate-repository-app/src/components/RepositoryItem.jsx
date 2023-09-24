@@ -89,7 +89,6 @@ const RepositoryItem = ({
   };
 
   const openURL = () => {
-    // console.log(`URL button clicked. url: ${url}`);
     Linking.openURL(url)
   };
 

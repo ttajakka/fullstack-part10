@@ -1,8 +1,11 @@
+import { useState } from 'react';
 import { FlatList, View, StyleSheet } from 'react-native';
+import { Picker } from '@react-native-picker/picker';
 
 import RepositoryItem from './RepositoryItem';
 
 import useRepositories from '../hooks/useRepositories';
+import Text from './Text';
 
 const styles = StyleSheet.create({
   separator: {
@@ -24,12 +27,26 @@ export const RepositoryListContainer = ({ repositories }) => {
       renderItem={({ item }) => <RepositoryItem {...item} showURL={false} />}
     />
   );
-}
+};
 
 const RepositoryList = () => {
-  const { repositories } = useRepositories();
+  const [order, setOrder] = useState('DEFAULT');
+  const { repositories } = useRepositories(order);
 
-  return <RepositoryListContainer repositories={repositories} />
+  return (
+    <>
+      <Picker
+        selectedValue={order}
+        onValueChange={(itemValue) => setOrder(itemValue)}
+        prompt='Order by:'
+      >
+        <Picker.Item label="Latest repositories" value="DEFAULT" />
+        <Picker.Item label="Highest rated repositories" value="HIGHEST" />
+        <Picker.Item label="Lowest rated repositories" value="LOWEST" />
+      </Picker>
+      <RepositoryListContainer repositories={repositories} />
+    </>
+  );
 };
 
 export default RepositoryList;
