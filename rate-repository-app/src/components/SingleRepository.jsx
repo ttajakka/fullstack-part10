@@ -24,7 +24,7 @@ const SingleRepository = () => {
   return (
     <FlatList
       data={reviewList}
-      renderItem={({ item }) => <ReviewItem {...item} />}
+      renderItem={({ item }) => <ReviewItem {...item} actions={false} />}
       ListHeaderComponent={() => (
         <RepositoryItem {...repository} singleRepPage={true} />
       )}

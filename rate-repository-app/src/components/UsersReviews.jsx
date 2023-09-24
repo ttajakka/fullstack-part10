@@ -3,17 +3,16 @@ import ReviewItem from './ReviewItem';
 import useGetCurrentUser from '../hooks/useGetCurrentUser';
 
 const UsersReviews = () => {
-  const { data } = useGetCurrentUser(true);
+  const { data, refetch } = useGetCurrentUser(true);
 
   const reviewList = data
     ? data.me.reviews.edges.map(r => r.node)
     : []
 
-
   return (
     <FlatList
       data={reviewList}
-      renderItem={({ item }) => <ReviewItem {...item} />}
+      renderItem={({ item }) => <ReviewItem {...item} actions={true} refetch={refetch} />}
       ItemSeparatorComponent={() => <View style={{ height: 10 }} />}
     />
   );
